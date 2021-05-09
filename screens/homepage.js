@@ -7,6 +7,7 @@ import AppLoading from 'expo-app-loading';
 import Icon from 'react-native-vector-icons/Ionicons';
 import bgImage from "../assets/image/background.jpg";
 import logo from "../assets/image/icon.png";
+import {firebaseAuth} from "../components/FirebaseConfig"
 
 
 
@@ -18,8 +19,6 @@ let customFonts ={
 };
 export default class Homepage extends Component {
     
-    
-
     constructor(props){
         super(props);
         this.state = {
@@ -31,7 +30,35 @@ export default class Homepage extends Component {
         }
     }
     
-    
+    loginAccount() {
+        firebaseAuth.signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            // ...
+            this.props.navigation.navigate('Dashboard');
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            Alert.alert(
+                "BKU Smart house register",
+                errorMessage,
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => {
+                            this.setState({
+                                email: '',
+                                password: '',
+                            })
+                        },
+                        style: "cancel"
+                    },
+                ]
+            );
+        });
+    }
 
     async _loadFontsAsync() {
         await Font.loadAsync(customFonts);
@@ -66,6 +93,8 @@ export default class Homepage extends Component {
                         placeholder = {'Email'}
                         placeholderTextColor = {'rgba( 255, 255, 255, 0.7)'}
                         underlineColorAndroid = 'transparent'
+                        onChangeText = {(email) => this.setState({email})}
+                        value = {this.state.email}
                     />
                 </View>
 
@@ -77,6 +106,8 @@ export default class Homepage extends Component {
                         secureTextEntry = {this.state.hidePassword}
                         placeholderTextColor = {'rgba( 255, 255, 255, 0.7)'}
                         underlineColorAndroid = 'transparent'
+                        onChangeText = {(password) => this.setState({password})}
+                        value = {this.state.password}
                     />
 
                     <TouchableOpacity onPress={this.onEyePress} style={styles.eyeBtn}>
@@ -86,7 +117,11 @@ export default class Homepage extends Component {
                     
                 </View>
 
-                <TouchableOpacity style={styles.loginBtn}>
+                <TouchableOpacity style={styles.loginBtn}
+                    onPress = {() =>{
+                        this.loginAccount();
+                    }}
+                >
                     <Text style={styles.loginText}>Login</Text>
                 </TouchableOpacity>
 
