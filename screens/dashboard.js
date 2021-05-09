@@ -1,12 +1,17 @@
 import React, { Component} from "react";
-import {View, Text} from "react-native";
+import {View, Text, StyleSheet, SafeAreaView, TouchableOpacity} from "react-native";
+import DrawerNavigation from '../routes/drawerNavigation';
+import {NavigationContainer} from 'react-navigation';
 
-export default class Homepage extends Component {
+
+export default class Dashboard extends Component {
     render() {
         return(
-            <View>
-                <Text>This is Dashboard</Text>
-            </View>
-        )
+            <DrawerNavigation/>
+        );
     }
 }
+
+const styles = StyleSheet.create({
+
+})

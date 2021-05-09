@@ -205,6 +205,15 @@ export default class Homepage extends Component {
                     <Text style={styles.registerText}>Sign up</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity style={styles.loginBtn}
+                    onPress={() => {
+                        this.props.navigation.navigate('Login');
+                    }
+                }
+                >
+                    <Text style={styles.loginText}>Already have an account? Let's sign in</Text>
+                </TouchableOpacity>
+
             </ImageBackground>
         );
         } else{
@@ -292,5 +301,21 @@ const styles = StyleSheet.create({
         fontSize: 14,
         textAlign: 'center',
     },
+
+    loginBtn:{
+        width: WIDTH - 125,
+        height: 45,
+        borderRadius: 45,
+        backgroundColor: '#ffffff',
+        justifyContent: 'center',
+        marginTop: 20, 
+    },
+
+    loginText:{
+        color:'rgba(0, 0, 0, 0.7)',
+        fontSize: 14,
+        textAlign: 'center',
+        fontWeight: 'bold'
+    }
 
 })
