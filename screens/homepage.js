@@ -5,7 +5,7 @@ import {
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import Icon from 'react-native-vector-icons/Ionicons';
-import bgImage from "../assets/image/background.jpg";
+import bgImage from "../assets/image/20.jpg";
 import logo from "../assets/image/icon.png";
 import {firebaseAuth} from "../components/FirebaseConfig"
 
@@ -87,7 +87,7 @@ export default class Homepage extends Component {
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <Icon name={'ios-person-outline'} size={28} color={'rgba( 0, 0, 0, 0.8)'} style={styles.InputIcon}/>
+                    <Icon name={'ios-person-outline'} size={28} color={'rgba( 225, 225, 225, 0.8)'} style={styles.InputIcon}/>
                     <TextInput 
                         style = {styles.Input}
                         placeholder = {'Email'}
@@ -99,7 +99,7 @@ export default class Homepage extends Component {
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <Icon name={'ios-lock-closed-outline'} size={28} color={'rgba( 0, 0, 0, 0.8)'} style={styles.InputIcon}/>
+                    <Icon name={'ios-lock-closed-outline'} size={28} color={'rgba( 225, 225, 225, 0.8)'} style={styles.InputIcon}/>
                     <TextInput 
                         style = {styles.Input}
                         placeholder = {'Password'}
@@ -112,7 +112,7 @@ export default class Homepage extends Component {
 
                     <TouchableOpacity onPress={this.onEyePress} style={styles.eyeBtn}>
                         <Icon name={this.state.eyePressed == false ? 'md-eye-outline' : 'eye-off-outline'} 
-                            size={28} color={'rgba( 0, 0, 0, 0.8)'}/>
+                            size={28} color={'rgba( 225, 225, 225, 0.8)'}/>
                     </TouchableOpacity>
                     
                 </View>
@@ -163,12 +163,13 @@ const styles = StyleSheet.create({
     },
 
     logoText: {
-        color: 'black',
+        color: 'white',
         fontSize: 20,
         fontWeight: '500',
         marginTop: 10,
-        opacity: 0.6,
+        opacity: 1,
         fontFamily: "UTM-Neutra",
+        
     },
     
     inputContainer: {

@@ -1,7 +1,12 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {firebaseDatabase} from '../../components/FirebaseConfig';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+
 
 export default function Bedroom() {
+
     return (
         <View style={styles.container}>
             <Text>Bedroom</Text>

@@ -9,24 +9,26 @@ const Stack = createStackNavigator();
 const AuthStack = () => {
     return (
         <Stack.Navigator
-          initialRouteName="Login"
-          screenOptions={{ gestureEnabled: false }}
+            initialRouteName="Login"
+            screenOptions={{ gestureEnabled: false }}
         >
             <Stack.Screen
                 name="Login"
                 component={Homepage}
                 options={{ 
-                    title: 'BKU SMART HOUSE',
+                    title: null,
                     headerTitleAlign: 'center', 
+                    headerTransparent:true
                 }}
             />
             <Stack.Screen
                 name = "Register"
                 component={Register}
                 options={{ 
-                    title: 'BKU SMART HOUSE',
+                    title: null,
                     headerTitleAlign: 'center', 
-                    headerLeft: ()=> null
+                    headerLeft: ()=> null,
+                    headerTransparent:true
                 }}
             />
             <Stack.Screen
@@ -35,7 +37,8 @@ const AuthStack = () => {
                 options={{ 
                     headerTransparent: true,
                     title: null,
-                    headerTitleAlign: 'center', 
+                    headerTitleAlign: 'center',
+                    headerTransparent:true, 
                     headerLeft: ()=> null
                 }}
             />

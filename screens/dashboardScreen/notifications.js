@@ -1,11 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import {firebaseDatabase} from '../../components/FirebaseConfig';
 
-export default function Secure() {
+export default function Notifications() {
     return (
         <View style={styles.container}>
-            <Text>Security page</Text>
+            <Text>Notifications page</Text>
         </View>
     )
 }
