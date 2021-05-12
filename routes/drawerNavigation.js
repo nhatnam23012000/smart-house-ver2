@@ -160,7 +160,7 @@ const DrawerContent = props => {
                 <View style={styles.upperDrawer}>
                     <Image source={appLogo}  style={styles.profileLogo}/>
                     <Text style={styles.logoText}>SMART HOUSE</Text>
-                    <Text style={styles.logoText}>FOR EVERYONE</Text>
+                    <Text style={styles.logoText1}>FOR EVERYONE</Text>
                 </View>
 
                 <DrawerItem
@@ -259,8 +259,15 @@ const styles = StyleSheet.create({
         color:'white'     
     },
 
+    logoText1: {
+        fontSize:14,
+        fontWeight: 'bold',
+        color:'white',
+        paddingBottom: 20
+    },
+
     bottomSection: {
-        borderTopColor:'black',
+        borderTopColor: 'black',
         borderBottomWidth: 2,
         marginBottom: 15
     }
