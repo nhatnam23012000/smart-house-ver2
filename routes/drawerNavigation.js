@@ -8,12 +8,18 @@ import {
 } from '@react-navigation/drawer';
 import {Feather, AntDesign , Ionicons,FontAwesome, FontAwesome5, MaterialCommunityIcons} from '@expo/vector-icons';
 import {createStackNavigator} from '@react-navigation/stack';
+
+//import the scenes
 import Bedroom from '../screens/dashboardScreen/bedroom';
-import Garden from '../screens/dashboardScreen/garden';
+import Balcony from '../screens/dashboardScreen/balcony';
 import Home from '../screens/dashboardScreen/home';
+import House from '../screens/dashboardScreen/house';
 import Setting from '../screens/dashboardScreen/setting';
 import Secure from '../screens/dashboardScreen/secure';
-import Lighting from '../screens/dashboardScreen/lighting';
+import Livingroom from '../screens/dashboardScreen/livingroom';
+import Bathroom from '../screens/dashboardScreen/bathroom'
+import Kitchen from '../screens/dashboardScreen/kitchen'
+
 import Homepage from '../screens/homepage';
 import appLogo from '../assets/image/icon.png';
 import Notifications from '../screens/dashboardScreen/notifications';
@@ -35,7 +41,7 @@ const NotiStack = ({navigation}) =>{
             headerTitle: null,
             headerRight: () => (
                 <TouchableOpacity style={styles.drawerBtn}>
-                    <Icon name = {"bars"} size ={28} color={'rgba( 0, 0, 0, 0.8)'}
+                    <Icon name = {"bars"} size ={28} color={'white'}
                      onPress = {() => navigation.openDrawer()}
                     />
                 </TouchableOpacity>
@@ -56,7 +62,7 @@ const SettingStack = ({navigation}) =>{
             headerTitle: null,
             headerRight: () => (
                 <TouchableOpacity style={styles.drawerBtn}>
-                    <Icon name = {"bars"} size ={28} color={'rgba( 0, 0, 0, 0.8)'}
+                    <Icon name = {"bars"} size ={28} color={'white'}
                     onPress = {() => navigation.openDrawer()}
                     />
                 </TouchableOpacity>
@@ -72,7 +78,7 @@ const SettingStack = ({navigation}) =>{
 //create the bottomtabn navigator
 const customTab = () =>{
     return(
-        <Tab.Navigator initialRouteName="Home"
+        <Tab.Navigator initialRouteName="HomeDashboard"
             tabBarOptions = {{
                 showLabel: false,
                 style:{
@@ -91,7 +97,7 @@ const customTab = () =>{
                     );
                 }
             }}/>
-            <Tab.Screen name="Home" component={Screens} options={{
+            <Tab.Screen name="HomeDashboard" component={Screens} options={{
                 tabBarIcon: () => {
                     return(
                         
@@ -121,7 +127,7 @@ const Screens = ({navigation}) => {
             headerTitle: null,
             headerRight: () => (
                 <TouchableOpacity style={styles.drawerBtn}>
-                    <Icon name = {"bars"} size ={28} color={'rgba( 0, 0, 0, 0.8)'}
+                    <Icon name = {"bars"} size ={28} color={'white'}
                     onPress = {() => navigation.openDrawer()}
                     />
                 </TouchableOpacity>
@@ -131,10 +137,13 @@ const Screens = ({navigation}) => {
         }}>
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Bedroom" component={Bedroom}/>
-            <Stack.Screen name="Garden" component={Garden}/>
+            <Stack.Screen name="Balcony" component={Balcony}/>
             <Stack.Screen name="Secure" component={Secure}/>
+            <Stack.Screen name="HouseControl" component={House}/>
+            <Stack.Screen name="Kitchen" component={Kitchen}/>
+            <Stack.Screen name="Bathroom" component={Bathroom}/>
             <Stack.Screen name="Setting" component={Setting}/>
-            <Stack.Screen name="Lighting" component={Lighting}/>
+            <Stack.Screen name="Livingroom" component={Livingroom}/>
             <Stack.Screen name= "Notifications" component={Notifications}/>
             <Stack.Screen name="Login" component={Homepage}/>
         </Stack.Navigator>
@@ -156,20 +165,29 @@ const DrawerContent = props => {
 
                 <DrawerItem
                     label="Home"
+                    labelStyle = {{
+                        color:'white',
+                    }}
                     onPress={() => props.navigation.navigate("Home")}
-                    icon = {() => <AntDesign name="home" size={24} color="black" />}
+                    icon = {() => <AntDesign name="home" size={24} color="white" />}
                 />
 
                 <DrawerItem
                     label= "Security"
+                    labelStyle = {{
+                        color:'white',
+                    }}
                     onPress={() => props.navigation.navigate("Secure")}
-                    icon = {() => <Feather name="shield" size={24} color="black" />}
+                    icon = {() => <Feather name="shield" size={24} color="white" />}
                 />
 
                 <DrawerItem
                     label="Settings"
+                    labelStyle = {{
+                        color:'white',
+                    }}
                     onPress={() => props.navigation.navigate("Setting")}
-                    icon = {() => <Ionicons name="settings-outline" size={24} color="black" />}
+                    icon = {() => <Ionicons name="settings-outline" size={24} color="white" />}
                 />
 
                 <View style={styles.bottomSection}>
@@ -177,8 +195,11 @@ const DrawerContent = props => {
                 </View>
                 <DrawerItem
                     label="Sign out"
+                    labelStyle = {{
+                        color:'white',
+                    }}
                     onPress={() => props.navigation.navigate("Login")}
-                    icon = {() => <Feather name="log-out" size={24} color="black" />}
+                    icon = {() => <Feather name="log-out" size={24} color="white" />}
                 />
             </View>
         </DrawerContentScrollView>
@@ -196,8 +217,10 @@ const customDrawer = () =>{
             drawerContent={(props) => <DrawerContent {...props} />}
             drawerStyle={{
                 width: 200,
+                backgroundColor:'#43484D'
             }}
             drawerPosition = {'left'}
+
         >
             
             <Drawer.Screen name="Tab" component={customTab} />
@@ -232,7 +255,8 @@ const styles = StyleSheet.create({
 
     logoText: {
         fontSize:14,
-        fontWeight: 'bold',     
+        fontWeight: 'bold',
+        color:'white'     
     },
 
     bottomSection: {

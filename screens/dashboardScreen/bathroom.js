@@ -1,12 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import {firebaseDatabase} from '../../components/FirebaseConfig';
 
 
-export default function Lighting() {
+export default function Bathroom() {
     return (
         <View style={styles.container}>
-            <Text>Lighting</Text>
+            <Text>Bathroom control</Text>
         </View>
     )
 }
