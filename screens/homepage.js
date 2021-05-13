@@ -7,7 +7,8 @@ import AppLoading from 'expo-app-loading';
 import Icon from 'react-native-vector-icons/Ionicons';
 import bgImage from "../assets/image/20.jpg";
 import logo from "../assets/image/icon.png";
-import {firebaseAuth} from "../components/FirebaseConfig"
+import {firebaseAuth} from "../components/FirebaseConfig";
+import { useFonts } from "@use-expo/font";
 
 
 
@@ -60,6 +61,8 @@ export default class Homepage extends Component {
         });
     }
 
+
+    
     async _loadFontsAsync() {
         await Font.loadAsync(customFonts);
         this.setState({ fontLoaded: true });
