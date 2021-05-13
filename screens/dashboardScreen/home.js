@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         opacity:0.5,
         width:380,
         height:120,
-        borderRadius:20
+        borderRadius:10
     },
     houseBtn: {
         flex: 1,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         height: 120,
         width: 380,   
-        borderRadius:20
+        borderRadius:10
     },
     houseBtnText: {
         position: 'absolute',
@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
         color:'white',
         paddingLeft: 7,
         paddingTop:5,
+        
     },
 
     //Living room Button
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
         opacity:0.5,
         width:380,
         height:120,
-        borderRadius:20
+        borderRadius:10
     },
     livingroomBtn: {
         flex: 1,
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         height: 120,
         width: 380,  
-        borderRadius:20    
+        borderRadius:10    
     },
     livingroomBtnText: {
         position: 'absolute',
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
         opacity:0.5,
         width:380,
         height:120,
-        borderRadius:20
+        borderRadius:10
     },
     bedroomBtn: {
         flex: 1,
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         height: 120,
         width: 380, 
-        borderRadius:20     
+        borderRadius:10     
     },
     bedroomBtnText: {
         position: 'absolute',
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
         opacity:0.5,
         width:380,
         height:120,
-        borderRadius:20
+        borderRadius:10
     },
     kitchenBtn: {
         flex: 1,
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         height: 120,
         width: 380,  
-        borderRadius:20    
+        borderRadius:10    
     },
     kitchenBtnText: {
         position: 'absolute',
@@ -234,7 +235,7 @@ const styles = StyleSheet.create({
         opacity:0.5,
         width:380,
         height:120,
-        borderRadius:20
+        borderRadius:10
     },
     bathroomBtn: {
         flex: 1,
@@ -243,7 +244,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         height: 120,
         width: 380,  
-        borderRadius:20    
+        borderRadius:10    
     },
     bathroomBtnText: {
         position: 'absolute',
@@ -259,7 +260,7 @@ const styles = StyleSheet.create({
         opacity:0.5,
         width:380,
         height:120,
-        borderRadius:20
+        borderRadius:10
     },
     balconyBtn: {
         flex: 1,
@@ -268,7 +269,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         height: 120,
         width: 380,  
-        borderRadius:20    
+        borderRadius:10    
     },
     balconyBtnText: {
         position: 'absolute',

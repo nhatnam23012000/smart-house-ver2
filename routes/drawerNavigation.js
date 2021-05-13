@@ -20,6 +20,10 @@ import Livingroom from '../screens/dashboardScreen/livingroom';
 import Bathroom from '../screens/dashboardScreen/bathroom'
 import Kitchen from '../screens/dashboardScreen/kitchen'
 
+import HouseLight from '../screens/dashboardScreen//houseScreen/houseLight'
+import HouseCurtain from '../screens/dashboardScreen//houseScreen/houseCurtain'
+import HouseWater from '../screens/dashboardScreen//houseScreen/houseWater'
+
 import Homepage from '../screens/homepage';
 import appLogo from '../assets/image/icon.png';
 import Notifications from '../screens/dashboardScreen/notifications';
@@ -42,7 +46,7 @@ const NotiStack = ({navigation}) =>{
             headerRight: () => (
                 <TouchableOpacity style={styles.drawerBtn}>
                     <Icon name = {"bars"} size ={28} color={'white'}
-                     onPress = {() => navigation.openDrawer()}
+                        onPress = {() => navigation.openDrawer()}
                     />
                 </TouchableOpacity>
             ),
@@ -146,6 +150,9 @@ const Screens = ({navigation}) => {
             <Stack.Screen name="Livingroom" component={Livingroom}/>
             <Stack.Screen name= "Notifications" component={Notifications}/>
             <Stack.Screen name="Login" component={Homepage}/>
+            <Stack.Screen name="HouseLight" component={HouseLight}/>
+            <Stack.Screen name="HouseCurtain" component={HouseCurtain}/>
+            <Stack.Screen name="HouseWater" component={HouseWater}/>
         </Stack.Navigator>
     );
 } 

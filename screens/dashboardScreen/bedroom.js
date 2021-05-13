@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import {firebaseDatabase} from '../../components/FirebaseConfig';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
