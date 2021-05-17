@@ -112,7 +112,7 @@ export default function Livingroom() {
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        backgroundColor: '#2D2E2F'
+        backgroundColor: '#43484D'
     },
 
     headerImg:{

@@ -86,8 +86,9 @@ const customTab = () =>{
             tabBarOptions = {{
                 showLabel: false,
                 style:{
-                    backgroundColor: '#43484D',
+                    backgroundColor: '#2D2E2F',
                     position: 'absolute',
+                    borderTopColor: '#2D2E2F'
                 },
                 
             }}
