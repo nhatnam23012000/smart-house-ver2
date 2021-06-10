@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import mqtt from '@taoqf/react-native-mqtt'
 import { StyleSheet, Text, View, SafeAreaView, StatusBar, ScrollView, TouchableOpacity, Switch, Image, Dimensions, FlatList} from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import {firestore} from '../../components/FirebaseConfig';
+
 
 //import hooks
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -23,25 +25,53 @@ const customFonts ={
     'Sora': require('../../assets/fonts/Sora-VariableFont_wght.ttf')
 };
 
+const lightSensorFeed = 'nhatnam23012000/feeds/light-sensor'
+const humidSensorFeed = 'nhatnam23012000/feeds/humid-sensor'
+const lightFeed = 'nhatnam23012000/feeds/balcony-light'
+const waterFeed = 'nhatnam23012000/feeds/balcony-water'
+const test = 'nhatnam23012000/feeds/noti'
 
 export default function Balcony() {
-    const navigation = useNavigation();
 
+    
+    const client = mqtt.connect("mqtt://io.adafruit.com",{
+        username: "nhatnam23012000",
+        password: "aio_TBtk19hSbEsXPl37BH2BasRXavEW"
+    })
+
+    client.on("connect",function () {
+        client.subscribe(test);
+        client.subscribe(lightFeed)
+    })
+    
+
+    const navigation = useNavigation();
 
     //TODO: we must upload these state tio firebase to sync it woith the house setting p[age]
     const [balconyLights, setBalconyLights] = useState(false);
     const [balconyWater, setBalconyWater] = useState(false);
     
 
-    const toggleBalconyLights = () => setBalconyLights(previousState => !previousState)
+
+    const toggleBalconyLights = () =>{ 
+        if (balconyLights == false){
+            setBalconyLights(true);
+            client.publish(lightFeed, '1')
+        }
+        else if (balconyLights == true){
+            setBalconyLights(false);
+            client.publish(lightFeed, '0')
+        }
+    }
     const toggleBalconyWater = () => setBalconyWater(previousState => !previousState)
     
 
     const [isLoaded] = useFonts(customFonts);
 
 
+
     if (!isLoaded) {
-        return <AppLoading />;
+        return <AppLoading/>;
     }
 
 
