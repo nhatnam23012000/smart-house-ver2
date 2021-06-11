@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import mqtt from '@taoqf/react-native-mqtt'
+import client from '../../components/MqttConfig'
 import { StyleSheet, Text, View, SafeAreaView, StatusBar, ScrollView, TouchableOpacity, Switch, Image, Dimensions, FlatList} from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import {firestore} from '../../components/FirebaseConfig';
+import firebase from "firebase/app"
 
 
 //import hooks
@@ -25,45 +26,97 @@ const customFonts ={
     'Sora': require('../../assets/fonts/Sora-VariableFont_wght.ttf')
 };
 
-const lightSensorFeed = 'nhatnam23012000/feeds/light-sensor'
-const humidSensorFeed = 'nhatnam23012000/feeds/humid-sensor'
 const lightFeed = 'nhatnam23012000/feeds/balcony-light'
 const waterFeed = 'nhatnam23012000/feeds/balcony-water'
-const test = 'nhatnam23012000/feeds/noti'
+const lightSensorFeed = 'nhatnam23012000/feeds/light-sensor'
+const humidSensorFeed = 'nhatnam23012000/feeds/humid-sensor'
 
 export default function Balcony() {
-
-    
-    const client = mqtt.connect("mqtt://io.adafruit.com",{
-        username: "nhatnam23012000",
-        password: "aio_TBtk19hSbEsXPl37BH2BasRXavEW"
-    })
-
-    client.on("connect",function () {
-        client.subscribe(test);
-        client.subscribe(lightFeed)
-    })
-    
-
     const navigation = useNavigation();
 
-    //TODO: we must upload these state tio firebase to sync it woith the house setting p[age]
+
+    
+    //TODO: we must upload these state to firebase to sync it with the house setting p[age]
     const [balconyLights, setBalconyLights] = useState(false);
     const [balconyWater, setBalconyWater] = useState(false);
+    const [currentLightLevel, setCurrentLightLevel] = useState("")
+    const [currentHumidity, setCurrentHumidity] = useState("")
+    const [dt, setDt] = useState(new Date().toLocaleString())
+    const [autoLight, setAutoLight] = useState(false)
+    const [autoWater, setAutoWater] = useState(false)
+
+
+    //check auto light and time
+    useEffect(() => {
+        let secTimer = setInterval( () => {
+            setDt(new Date().toLocaleString())
+            firestore.collection('AutoLighting')
+            .orderBy('time','desc')
+            .limit(1)
+            .get()
+            .then(snapshot =>{
+                setAutoLight(snapshot.docs[0].data().value)
+            })
+            firestore.collection('AutoWater')
+            .orderBy('time','desc')
+            .limit(1)
+            .get()
+            .then(snapshot =>{
+                setAutoWater(snapshot.docs[0].data().value)
+            })
+        },1000)
     
+        return () => clearInterval(secTimer);
+    })
+    
+
+    //MQTT listener
+    client.on('message', function (topic, message){
+        if(topic == lightSensorFeed){
+            setCurrentLightLevel(message.toString())
+        }
+        else if(topic == humidSensorFeed){
+            setCurrentHumidity(message.toString())
+        }
+    })
 
 
     const toggleBalconyLights = () =>{ 
         if (balconyLights == false){
             setBalconyLights(true);
             client.publish(lightFeed, '1')
+            firestore.collection('BalconyLight').add({
+                time: firebase.firestore.Timestamp.now(),
+                value: true
+            })
         }
         else if (balconyLights == true){
             setBalconyLights(false);
             client.publish(lightFeed, '0')
+            firestore.collection('BalconyLight').add({
+                time: firebase.firestore.Timestamp.now(),
+                value: false
+            })
         }
     }
-    const toggleBalconyWater = () => setBalconyWater(previousState => !previousState)
+    const toggleBalconyWater = () => {
+        if (balconyWater == false){
+            setBalconyWater(true);
+            client.publish(waterFeed, '1')
+            firestore.collection('Water').add({
+                time: firebase.firestore.Timestamp.now(),
+                value: true
+            })
+        }
+        else if (balconyWater == true){
+            setBalconyWater(false)
+            client.publish(waterFeed, '0')
+            firestore.collection('Water').add({
+                time: firebase.firestore.Timestamp.now(),
+                value: false
+            })
+        }
+    }
     
 
     const [isLoaded] = useFonts(customFonts);
@@ -101,7 +154,8 @@ export default function Balcony() {
                             <Switch
                                 trackColor={{ false: "black", true: "#81b0ff" }}
                                 thumbColor={'white'}
-                                onValueChange={toggleBalconyLights} 
+                                onValueChange={toggleBalconyLights}
+                                disabled = {autoLight == false ? false : true}
                                 value={balconyLights}
                             />
                         </View>
@@ -114,7 +168,8 @@ export default function Balcony() {
                             <Switch
                                 trackColor={{ false: "black", true: "#81b0ff" }}
                                 thumbColor={'white'}
-                                onValueChange={toggleBalconyWater} 
+                                onValueChange={toggleBalconyWater}
+                                disabled = {autoWater == false ? false : true}
                                 value={balconyWater}
                             />
                         </View>
@@ -138,19 +193,16 @@ export default function Balcony() {
                     {/* TODO  dynamic show this data with firestore*/}
                     <Row size={30}>
                         <Col style={styles.cell}>
-                            <Text color={'white'}> TIme goes here</Text>
+                            <Text style={styles.infoText}>{dt}</Text>
                         </Col>
                         <Col style={styles.cell}>
-                            <Text color={'white'}>Light goes here</Text>
+                            <Text style={styles.infoText}>{currentLightLevel}</Text>
                         </Col>
                         <Col style={styles.cell}>
-                            <Text color={'white'}>Humid goes here</Text>
+                            <Text style={styles.infoText}>{currentHumidity}</Text>
                         </Col>
                     </Row>
                 </Grid>
-                
-            
-
             </ScrollView>
         </SafeAreaView>
     )
@@ -226,7 +278,12 @@ const styles = StyleSheet.create({
         flex: 1, 
         justifyContent: 'center',
         alignItems: 'center'
-      },
+    },
+
+    infoText: {
+        color: 'white',
+        alignSelf: 'center'
+    }
 
 
 })
